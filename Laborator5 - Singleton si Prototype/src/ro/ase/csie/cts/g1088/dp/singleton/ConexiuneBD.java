@@ -5,6 +5,9 @@ public class ConexiuneBD {
 	String ip;
 	String denumire;
 	
+	//versiune eager (nu mai astepti apelul getConexiune)
+	//private static ConexiuneBD conexiune= new Conexiune("10.0.0.1","cts");
+	
 	private static ConexiuneBD conexiune=null;
 	
 	private ConexiuneBD() {
@@ -17,7 +20,9 @@ public class ConexiuneBD {
 		this.denumire = denumire;
 	}
 	
-	public static ConexiuneBD getConexiune() {
+	
+	//versiune lazy
+	public static synchronized ConexiuneBD getConexiune() {
 		if(conexiune==null) {
 			//datele se pot prelua din fisiere de configurare
 			conexiune=new ConexiuneBD("10.0.0.1","cts");
