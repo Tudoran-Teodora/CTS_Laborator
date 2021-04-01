@@ -16,7 +16,8 @@ public class TestBuilder {
 
 		SuperErou superman=new SuperErou.SuperErouBuilder("Superman", 100).build();
 		SuperErou joker=new SuperErou.SuperErouBuilder("Joker", 200)
-				.esteNegativ().esteRanit()
+				.esteNegativ()
+				.esteRanit()
 				.setArmaDreapta(new Arma())
 				.build();
 		
