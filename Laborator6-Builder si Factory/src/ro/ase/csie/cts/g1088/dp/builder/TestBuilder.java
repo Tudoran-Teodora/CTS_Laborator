@@ -21,6 +21,8 @@ public class TestBuilder {
 				.setArmaDreapta(new Arma())
 				.build();
 		
+	
+		
 	}
 
 }
