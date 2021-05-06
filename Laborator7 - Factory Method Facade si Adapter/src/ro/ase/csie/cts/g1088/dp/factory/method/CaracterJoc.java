@@ -6,4 +6,6 @@ public abstract class CaracterJoc {
 	int putere;
 	
 	public abstract void seDeplaseaza();
+
+
 }
