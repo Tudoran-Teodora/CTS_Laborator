@@ -22,5 +22,7 @@ public class TestAdapter {
 		InterfataCaracterEA caracterEA=new CaracterGenericEA();
 		AdapterEa2CaracterJoc adapt=new AdapterEa2CaracterJoc(caracterEA);
 		caractere.add(adapt);
+		
 			}
+	
 }
