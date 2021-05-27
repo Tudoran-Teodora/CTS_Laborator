@@ -11,21 +11,22 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import ro.ase.csie.g1088.testare.exceptii.ExceptieNota;
 import ro.ase.csie.g1088.testare.exceptii.ExceptieNume;
 import ro.ase.csie.g1088.testare.exceptii.ExceptieVarsta;
 import ro.ase.csie.g1088.testare.modele.Student;
 
 public class TestStudent {
 
-	//text fixture
+	// test fixture
 	static Student student;
-	static ArrayList<Integer>note;
-	static String numeInitial="Gigel";
-	static int varstaInitiala=21;
-	
+	static ArrayList<Integer> note;
+	static String numeInitial = "Gigel";
+	static int varstaInitiala = 21;
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		note=new ArrayList<>();
+		note = new ArrayList<>();
 		note.add(9);
 		note.add(7);
 		note.add(10);
@@ -34,18 +35,21 @@ public class TestStudent {
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
+
 		note.clear();
-		note=null;
+		note = null;
 	}
 
 	@Before
 	public void setUp() throws Exception {
-		student=new Student(numeInitial,varstaInitiala,note);
+
+		student = new Student(numeInitial, varstaInitiala, note);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		student=null;
+
+		student = null;
 	}
 
 	@Ignore
@@ -56,40 +60,86 @@ public class TestStudent {
 
 	@Test
 	public void testSetVarstaConformanceRight() throws ExceptieVarsta {
-		
-		
-		int varstaNoua=23;
+
+		int varstaNoua = 23;
+
 		student.setVarsta(varstaNoua);
-		assertEquals("Test cu valori corecte",varstaNoua, student.getVarsta());
+
+		assertEquals("Test cu valori corecte", varstaNoua, student.getVarsta());
+
 	}
-	
+
 	@Test
 	public void testSetNumeRight() {
-		String numeNou="Ana";
+		String numeNou = "Ana";
 		try {
 			student.setNume(numeNou);
-			assertEquals("Test cu valori corecte",numeNou, student.getNume());
+			assertEquals("Test cu valori corecte", numeNou, student.getNume());
 		} catch (ExceptieNume e) {
 			fail("Genereaza exceptie pentru valori corecte");
 		}
 	}
-	
-	
+
 	@Test
 	public void testSetVarstaErrorCondition() {
-		int varstaNou=Student.MIN_VARSTA-1;
+		int varstaNoua = Student.MIN_VARSTA - 1;
 		try {
-			student.setVarsta(varstaNou);
-			fail("Nu genereaza exceptie pentru varsta inafara limintelor");
+			student.setVarsta(varstaNoua);
+			fail("NU genereaza exceptie pentru varsta in afara limitelor");
 		} catch (ExceptieVarsta e) {
 			assertTrue(true);
 		}
+
 	}
-	
-	@Test(expected=ExceptieNume.class)
+
+	@Test(expected = ExceptieNume.class)
 	public void testSetNumeErrorCondition() throws ExceptieNume {
-		String numeNou="Io";
+		String numeNou = "Io";
 		student.setNume(numeNou);
-		
 	}
+
+	@Test
+	public void testGetNotaMinimaOrderingSetSortatCrescator() throws ExceptieNota {
+		int notaMinima = 4;
+		ArrayList<Integer> note = new ArrayList<>();
+		for (int i = 0; i < 5; i++) {
+			note.add(i + notaMinima);
+		}
+		student.setNote(note);
+
+		int notaMinimaCalculata = student.getNotaMinima();
+		assertEquals("Test cu valori sortate crescator", notaMinima, notaMinimaCalculata);
+	}
+
+	@Test
+	public void testGetNotaMinimaCardinalityZero() throws ExceptieNota {
+		ArrayList<Integer> note = new ArrayList<>();
+		student.setNote(note);
+		int notaMinima = 0;
+		int notaMinimaCalculata = student.getNotaMinima();
+		assertEquals("Test fara note", notaMinima, notaMinimaCalculata);
+	}
+
+	@Test
+	public void testGetNotaMinimaCardinalityUnu() throws ExceptieNota {
+		ArrayList<Integer> note = new ArrayList<>();
+		note.add(Student.MAX_NOTA);
+
+		student.setNote(note);
+
+		int notaMinima = student.MAX_NOTA;
+		int notaMinimaCalculata = student.getNotaMinima();
+		assertEquals("Test cu o singura nota", notaMinima, notaMinimaCalculata);
+	}
+
+	@Test
+	public void getNotaMinimaExistanceReferintaNoteNull() throws ExceptieNota {
+
+		student.setNote(null);
+		int notaMinima = 0;
+		int notaMinimaCalculata = student.getNotaMinima();
+		assertEquals("Test cu referinta null pentru note", notaMinima, notaMinimaCalculata);
+
+	}
+
 }
