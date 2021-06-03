@@ -133,7 +133,7 @@ public class TestStudent {
 	}
 
 	@Test
-	public void getNotaMinimaExistanceReferintaNoteNull() throws ExceptieNota {
+	public void testGetNotaMinimaExistanceReferintaNoteNull() throws ExceptieNota {
 
 		student.setNote(null);
 		int notaMinima = 0;
